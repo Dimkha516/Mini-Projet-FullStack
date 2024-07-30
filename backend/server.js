@@ -1,5 +1,6 @@
 const express = require("express");
 const connectMongo = require("./config/db.config");
+const router = require("./routes/post.routes");
 const app = express();
 const dotenv = require("dotenv").config();
 
@@ -12,8 +13,14 @@ app.listen(port, () => {
 });
 
 // CONNEXION A MONGODB:
-connectMongo(); 
+connectMongo();
 
 // MIDDLEWARES:
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+
+
+// UTILISATION DES ROUTES:
+app.use("/posts", router);
 
 // UTILISATION DES ROUTES:
